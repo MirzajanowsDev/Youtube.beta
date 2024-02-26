@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthService } from '../../service/api.service'
-import { Box, Chip, Stack, Typography } from '@mui/material'
+import { Box, CardMedia, Chip, Stack, Typography } from '@mui/material'
 import ReactPlayer from 'react-player'
 import { FavoriteOutlined, MarkChatRead, Tag, Visibility } from '@mui/icons-material'
 import { logDOM } from '@testing-library/react'
 import Videos from '../videos/videos'
+import moment from 'moment'
 
 const VideoDetail = () => {
   const [videoDetail,SetVideoDetail] = useState(null)
   const {id} = useParams()
+  const [commet,setcomment] = useState([])
   const [relatedVideos,setRelatedVideos] = useState([])
   useEffect(() => {
     const getData =  async() => {
@@ -17,7 +19,10 @@ const VideoDetail = () => {
       SetVideoDetail(data.items[0])
       const {items} = await AuthService.fetching(`search?part=snippet&relatedToVideoId=${id}&type=video`)
       setRelatedVideos(items)
+      const comments = await AuthService.fetching(`commentThreads?part=snippet&videoId=${id}`)
+      setcomment(comments.items)
     }
+
     getData()
   }, [id])
   
@@ -53,7 +58,6 @@ const VideoDetail = () => {
         {videoDetail.snippet.description}
       </Typography>
           <Stack direction={'row'} gap="20px" alignItems='center' py={1} px={2}>
-            
           <Stack sx={{opacity:'.7'}} direction={'row'} gap="3px" alignItems='center' py={1} px={2}>
             <Visibility/>
             {parseInt(videoDetail.statistics.viewCount).toLocaleString()} views
@@ -66,7 +70,11 @@ const VideoDetail = () => {
             <MarkChatRead/>
             {parseInt(videoDetail.statistics.commentCount).toLocaleString()} comments
           </Stack>
+          <Stack  sx={{opacity:'.7'}} direction={'row'} gap="3px" alignItems='center' py={1} px={2}>
+            published {moment(videoDetail?.snippet?.publishedAt).fromNow()}
           </Stack>
+          </Stack>
+          
       </Box>
       <Box width={{xs:'100%',md:'25%'}}>
       <Videos videos={relatedVideos && relatedVideos}/>

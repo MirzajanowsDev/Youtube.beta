@@ -2,7 +2,6 @@ import { Box, Container, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { color } from '../../constants/color'
 import Category from '../category/category'
-import { category } from '../../constants/category'
 import { AuthService } from '../../service/api.service'
 import Videos from '../videos/videos'
 
@@ -12,9 +11,8 @@ const Main = () => {
   const selectedCategoryHandler = (category) => setSelectedCategory(category)
   useEffect(() => {
     const get = async () => {
-      const {items} =await AuthService.fetching(`search?part=snippet&q=${selectedCategory}`)
+      const {items} = await AuthService.fetching(`search?part=snippet&q=${selectedCategory}`)
       setvideos(items)
-      console.log(items);
     }
     get()
   }, [selectedCategory])
