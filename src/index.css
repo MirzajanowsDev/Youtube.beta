@@ -31,3 +31,16 @@
 .category-btn:hover span{
   color:#fff !important
 }
+.react-player{
+  height: 77vh !important;
+  width: 100% !important;
+}
+@media screen and (max-width:600px) {
+    .search-bar{
+      width: 200px;
+    }
+}
+a{
+  text-decoration: none;
+  color:black;
+}

@@ -18,7 +18,6 @@ const Main = () => {
     }
     get()
   }, [selectedCategory])
-  
   return (
     <Stack>
       <Category selectedCategory={selectedCategory}  selectedCategoryHandler={selectedCategoryHandler}/>

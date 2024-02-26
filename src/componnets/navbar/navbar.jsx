@@ -10,7 +10,7 @@ const Navbar = () => {
     alignItems={'center'}
     justifyContent={'space-between'}
     p={2}
-    sx={{position:'sticky', top:0,zIndex:999, background: color.primary}}
+    sx={{position:'sticky', top:0,zIndex:999, background: color.primary,}}
     >
         <div></div>
     

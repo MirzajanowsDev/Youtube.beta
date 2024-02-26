@@ -4,6 +4,7 @@ import VideoCard from '../video-card.jsx/video-card'
 import ChannelCard from '../channel-card/channel-card'
 
 const Videos = ({videos}) => {
+ if (!videos.length) return <div>"asd'</div> 
   return (
     <Stack width={'100%'}
     direction={'row'}
